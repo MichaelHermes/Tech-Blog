@@ -1,13 +1,13 @@
-const Sequelize = require("sequelize");
-require("dotenv").config();
+const Sequelize = require('sequelize');
+require('dotenv').config();
 
 let sequelize = new Sequelize(
-	"techblog_db",
+	'techblog_db',
 	process.env.DB_USER,
 	process.env.DB_PASSWORD,
 	{
-		host: "localhost",
-		dialect: "mysql",
+		host: 'localhost',
+		dialect: 'mysql',
 		port: 3306,
 	}
 );
