@@ -1,3 +1,8 @@
-<div>
-	<p>This is the dashboard</p>
-</div>
+{{#if posts.length}}
+	{{#each posts}}
+		<div>
+			<h3>{{title}}</h3>
+			<p>{{content}}</p>
+		</div>
+	{{/each}}
+{{/if}}

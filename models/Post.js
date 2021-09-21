@@ -32,7 +32,7 @@ Post.init(
 		updatedAt: false,
 		freezeTableName: true,
 		underscored: true,
-		//modelName: 'post',
+		modelName: 'post',
 	}
 );
 
