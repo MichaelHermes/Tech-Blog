@@ -1,8 +1,10 @@
 {{#if posts.length}}
-	{{#each posts}}
-		<div>
-			<h3>{{title}}</h3>
-			<p>{{content}}</p>
-		</div>
-	{{/each}}
+	<section id='post-list'>
+		{{#each posts}}
+			{{> post-summary}}
+		{{/each}}
+	</section>
 {{/if}}
+
+<button id='new-post'>+ New Post</button>
+<script src='./js/dashboard.js'></script>

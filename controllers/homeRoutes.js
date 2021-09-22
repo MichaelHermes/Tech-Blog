@@ -13,7 +13,6 @@ router.get('/', async (req, res) => {
 				},
 			],
 		});
-
 		// Serialize data so the template can read it
 		const posts = postData.map(post => post.get({ plain: true }));
 
@@ -34,12 +33,33 @@ router.get('/dashboard', withAuth, async (req, res) => {
 			attributes: { exclude: ['password'] },
 			include: [{ model: Post }],
 		});
-
 		const user = userData.get({ plain: true });
-		console.log(user);
+
 		res.render('dashboard', {
 			...user,
 			logged_in: true,
+		});
+	} catch (err) {
+		res.status(500).json(err);
+	}
+});
+
+router.get('/post/:id', async (req, res) => {
+	try {
+		const postData = await Post.findByPk(req.params.id, {
+			include: [
+				{
+					model: User,
+					attributes: ['username'],
+				},
+			],
+		});
+		const post = postData.get({ plain: true });
+
+		res.render('post', {
+			post,
+			logged_in: req.session.logged_in,
+			edit: req.session.user_id === post.user_id,
 		});
 	} catch (err) {
 		res.status(500).json(err);
@@ -54,6 +74,10 @@ router.get('/login', (req, res) => {
 	}
 
 	res.render('login');
+});
+
+router.get('/newPost', (req, res) => {
+	res.render('post', { logged_in: req.session.logged_in });
 });
 
 module.exports = router;
