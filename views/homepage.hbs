@@ -1,7 +1,3 @@
-{{#each posts}}
-	<div>
-		<h3>{{title}}</h3>
-		<p>{{content}}</p>
-		<p>-By: {{user.username}}</p>
-	</div>
+{{#each posts as |post|}}
+	{{{post_summary post}}}
 {{/each}}

@@ -1,0 +1,26 @@
+{{#if post}}
+    {{{post_summary post}}}
+
+    {{#each post.comments}}
+        {{> comment}}
+    {{/each}}
+
+    <form class='form comment-form' {{#if post}}data-id='{{post.id}}'{{/if}}>
+        <div class='form-group'>
+            <label for='comment-text'>Comment</label>
+            <textarea
+                class='form-input'
+                id='comment-text'
+                name='comment-text'
+            ></textarea>
+        </div>
+        <div class='form-group'>
+            <button
+                type='submit'
+                class='btn btn-primary'
+            >Submit</button>
+        </div>
+    </form>
+
+    <script src="../js/comments.js"></script>
+{{/if}}

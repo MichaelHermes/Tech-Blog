@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const { Post, User } = require('../models');
+const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+// Render the template for the app homepage (a list of all existing posts)
 router.get('/', async (req, res) => {
 	try {
 		// Get all posts and include the associated user data
@@ -26,6 +27,7 @@ router.get('/', async (req, res) => {
 	}
 });
 
+// Render the template for the current logged-in user's dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
 	try {
 		// Find the logged in user based on the session's user_id
@@ -44,7 +46,23 @@ router.get('/dashboard', withAuth, async (req, res) => {
 	}
 });
 
-router.get('/post/:id', async (req, res) => {
+// Render the template for editing an existing post
+router.get('/post/:id/edit', async (req, res) => {
+	try {
+		const postData = await Post.findByPk(req.params.id);
+		const post = postData.get({ plain: true });
+
+		res.render('post', {
+			post,
+			logged_in: req.session.logged_in,
+		});
+	} catch (err) {
+		res.status(500).json(err);
+	}
+});
+
+// Render the template for existing post details (i.e. comments)
+router.get('/post/:id', withAuth, async (req, res) => {
 	try {
 		const postData = await Post.findByPk(req.params.id, {
 			include: [
@@ -52,14 +70,23 @@ router.get('/post/:id', async (req, res) => {
 					model: User,
 					attributes: ['username'],
 				},
+				{
+					model: Comment,
+					include: [
+						{
+							model: User,
+							attributes: ['username'],
+						},
+					],
+				},
 			],
 		});
 		const post = postData.get({ plain: true });
+		//console.log(postData, post);
 
-		res.render('post', {
+		res.render('comments', {
 			post,
 			logged_in: req.session.logged_in,
-			edit: req.session.user_id === post.user_id,
 		});
 	} catch (err) {
 		res.status(500).json(err);
@@ -76,7 +103,8 @@ router.get('/login', (req, res) => {
 	res.render('login');
 });
 
-router.get('/newPost', (req, res) => {
+// Render the template for creating a new post
+router.get('/post', (req, res) => {
 	res.render('post', { logged_in: req.session.logged_in });
 });
 

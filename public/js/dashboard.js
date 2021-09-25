@@ -1,5 +1,5 @@
-const newPostHandler = async event => {
-	document.location.replace('/newPost');
+const newPostHandler = async () => {
+	document.location.replace('/post');
 };
 
 document.querySelector('#new-post').addEventListener('click', newPostHandler);
