@@ -1,6 +1,9 @@
-<section class='card'>
-	<a href='/post/{{id}}/edit'>
-		<h4>{{title}}</h4>
+<section class='card my-3 mx-auto post-card'>
+	<a href='/post/{{id}}/edit' class='card-header stretched-link'>
+		<h2>{{title}}</h2>
 	</a>
-	<p>{{content}}</p>
+	<div class='card-body'>
+		<div class='card-subtitle mb-2 text-muted'>Created:
+			{{format_date createdAt}}</div>
+	</div>
 </section>

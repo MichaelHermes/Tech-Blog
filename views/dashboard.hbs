@@ -1,3 +1,9 @@
+<div class="container">
+	<div class="col text-center">
+		<button class='btn btn-primary' id='new-post'>+ New Post</button>
+	</div>
+</div>
+
 {{#if posts.length}}
 	<section id='post-list'>
 		{{#each posts}}
@@ -6,5 +12,4 @@
 	</section>
 {{/if}}
 
-<button id='new-post'>+ New Post</button>
 <script src='./js/dashboard.js'></script>

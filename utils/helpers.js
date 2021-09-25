@@ -3,28 +3,28 @@ module.exports = {
 		// Format date as MM/DD/YYYY
 		return date.toLocaleDateString();
 	},
-	format_amount: amount => {
-		// format large numbers with commas
-		return parseInt(amount).toLocaleString();
-	},
-	post_summary: post => {
-		return `<section class='card'>
-		<a href='/post/${post.id}'>
-			<h4>${post.title}</h4>
-		</a>
-		<p>${post.content}</p>
-	</section>`;
-	},
-	// get_emoji: () => {
-	// 	const randomNum = Math.random();
+	post_card: (post, link) => {
+		let postCard = "<section class='card my-3 mx-auto post-card'>";
 
-	// 	// Return a random emoji
-	// 	if (randomNum > 0.7) {
-	// 		return `<span for="img" aria-label="lightbulb">💡</span>`;
-	// 	} else if (randomNum > 0.4) {
-	// 		return `<span for="img" aria-label="laptop">💻</span>`;
-	// 	} else {
-	// 		return `<span for="img" aria-label="gear">⚙️</span>`;
-	// 	}
-	// },
+		if (link) {
+			postCard += `
+			<a href='/post/${post.id}' class='card-header stretched-link'>
+				<h2>${post.title}</h2>
+			</a>`;
+		} else {
+			postCard += `
+			<div class='card-header'>
+				<h2>${post.title}</h2>
+			</div>`;
+		}
+
+		postCard += `
+			<div class='card-body'>
+				<div class='card-subtitle mb-2 text-muted'>By: ${post.user.username}</div>
+				<div class='card-text fs-5'>${post.content}</div>
+			</div>
+		</section>`;
+
+		return postCard;
+	},
 };

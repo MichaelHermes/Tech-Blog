@@ -1,4 +1,9 @@
-<section class='card'>
-	<h2>{{text}}</h2>
-	<p>- By: {{user.username}}</p>
+<section class='card my-3 mx-auto comment-card'>
+	<div class='card-body'>
+		<div class='card-title fs-5'>{{text}}</div>
+		<div class='card-subtitle mb-2 text-muted'>-
+			{{user.username}}
+			on
+			{{format_date createdAt}}</div>
+	</div>
 </section>
