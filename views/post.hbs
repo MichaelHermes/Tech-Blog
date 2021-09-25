@@ -1,53 +1,47 @@
-<div class='row mt-4'>
-	<div class='col-md-6'>
-		<h3>{{#if post}}Edit Post{{else}}Create New Post{{/if}}</h3>
+<section class="card my-3 mx-auto post-card">
+	<h3 class='card-header'>{{#if post}}Edit Post{{else}}Create New Post{{/if}}</h3>
 
+	<div class="card-body">
 		<form class='form post-form' {{#if post}}data-id='{{post.id}}'{{/if}}>
-			<div class='form-group'>
-				<label for='post-title'>Title</label>
+			<div class='mb-3'>
+				<label class='form-label' for='post-title'>Title</label>
 				<input
-					class='form-input'
+					class='form-control'
 					type='text'
 					id='post-title'
 					name='post-title'
 					value='{{#if post}}{{post.title}}{{/if}}'
 				/>
 			</div>
-			<div class='form-group'>
-				<label for='post-content'>Content</label>
+			<div class='mb-3'>
+				<label class='form-label' for='post-content'>Content</label>
 				<textarea
-					class='form-input'
+					class='form-control'
 					id='post-content'
 					name='post-content'
 				>{{#if post}}{{post.content}}{{/if}}</textarea>
 			</div>
 			{{#if post}}
-				<div class='form-group'>
-					<button
-						type='submit'
-						class='btn btn-primary'
-						id='update-post'
-					>Update Post</button>
-				</div>
-				<div class='form-group'>
-					<button
-						type='button'
-						class='btn btn-primary'
-						id='delete-post'
-						data-id='{{post.id}}'
-						onclick='deletePost()'
-					>Delete</button>
-				</div>
+				<button
+					type='submit'
+					class='btn btn-primary'
+					id='update-post'
+				>Update Post</button>
+				<button
+					type='button'
+					class='btn btn-primary'
+					id='delete-post'
+					data-id='{{post.id}}'
+					onclick='deletePost()'
+				>Delete</button>
 			{{else}}
-				<div class='form-group'>
-					<button
-						type='submit'
-						class='btn btn-primary'
-					>Create</button>
-				</div>
+				<button
+					type='submit'
+					class='btn btn-primary'
+				>Create</button>
 			{{/if}}
 		</form>
 	</div>
-</div>
+</section>
 
 <script src='../../js/post.js'></script>

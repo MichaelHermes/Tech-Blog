@@ -2,6 +2,9 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
+const THETECHBLOG = 'The Tech Blog';
+const YOURDASHBOARD = 'Your Dashboard';
+
 // Render the template for the app homepage (a list of all existing posts)
 router.get('/', async (req, res) => {
 	try {
@@ -20,6 +23,7 @@ router.get('/', async (req, res) => {
 		// Pass serialized data and session flag into template
 		res.render('homepage', {
 			posts,
+			title: THETECHBLOG,
 			logged_in: req.session.logged_in,
 		});
 	} catch (err) {
@@ -39,6 +43,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 		res.render('dashboard', {
 			...user,
+			title: YOURDASHBOARD,
 			logged_in: true,
 		});
 	} catch (err) {
@@ -54,6 +59,7 @@ router.get('/post/:id/edit', async (req, res) => {
 
 		res.render('post', {
 			post,
+			title: YOURDASHBOARD,
 			logged_in: req.session.logged_in,
 		});
 	} catch (err) {
@@ -86,6 +92,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
 
 		res.render('comments', {
 			post,
+			title: THETECHBLOG,
 			logged_in: req.session.logged_in,
 		});
 	} catch (err) {
@@ -100,12 +107,17 @@ router.get('/login', (req, res) => {
 		return;
 	}
 
-	res.render('login');
+	res.render('login', {
+		title: THETECHBLOG,
+	});
 });
 
 // Render the template for creating a new post
 router.get('/post', (req, res) => {
-	res.render('post', { logged_in: req.session.logged_in });
+	res.render('post', {
+		title: YOURDASHBOARD,
+		logged_in: req.session.logged_in,
+	});
 });
 
 module.exports = router;
