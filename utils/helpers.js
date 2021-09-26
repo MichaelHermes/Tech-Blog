@@ -8,7 +8,9 @@ module.exports = {
 		let postCard = `	<section class='card my-3 mx-auto post-card'>
 			<h2 class='card-header fw-bold'>${post.title}</h2>
 			<div class='card-body'>
-				<div class='card-subtitle mb-2 text-muted'>By: ${post.user.username}</div>
+				<div class='card-subtitle mb-2 text-muted'>By: ${
+					post.user.username
+				} on ${post.createdAt.toLocaleDateString()}</div>
 				<div class='card-text fs-5'>${post.content}</div>
 			</div>`;
 
