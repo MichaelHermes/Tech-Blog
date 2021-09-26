@@ -6,6 +6,7 @@ const formSubmitHandler = async event => {
 	if (text && event.target.hasAttribute('data-id')) {
 		const id = event.target.getAttribute('data-id');
 
+		// POST the new comment to the blog post.
 		const response = await fetch(`/api/comments`, {
 			method: 'POST',
 			body: JSON.stringify({ text, post_id: id }),
@@ -14,6 +15,7 @@ const formSubmitHandler = async event => {
 			},
 		});
 		if (response.ok) {
+			// Reload the current blog post to display the new comment.
 			document.location.reload();
 		} else {
 			alert('Failed to create blog post comment');

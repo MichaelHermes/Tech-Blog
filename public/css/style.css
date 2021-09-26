@@ -1,8 +1,42 @@
+:root {
+	--melon: #ffb5a7ff;
+	--pale-pink: #fcd5ceff;
+	--isabelline: #f8edebff;
+	--peach-puff: #f9dcc4ff;
+	--peach-crayola: #fec89aff;
+}
+
+body {
+	background-color: var(--isabelline);
+}
+
 .post-card,
 .comment-card {
 	width: 45rem;
+	background-color: var(--isabelline);
+}
+
+.login-card,
+.signup-card {
+	background-color: var(--isabelline);
+}
+
+.post-card h2,
+.login-card h2,
+.signup-card h2 {
+	background-color: var(--melon);
 }
 
 .comment-header {
 	height: 2rem;
+	background-color: var(--melon);
+}
+
+header,
+.page-title {
+	background-color: var(--melon);
+}
+
+.nav-link {
+	color: black;
 }

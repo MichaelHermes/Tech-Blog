@@ -1,10 +1,10 @@
 <section class="card my-3 mx-auto post-card">
-	<h3 class='card-header'>{{#if post}}Edit Post{{else}}Create New Post{{/if}}</h3>
+	<h2 class='card-header fw-bold'>{{#if post}}Edit Post{{else}}Create New Post{{/if}}</h2>
 
 	<div class="card-body">
 		<form class='form post-form' {{#if post}}data-id='{{post.id}}'{{/if}}>
 			<div class='mb-3'>
-				<label class='form-label' for='post-title'>Title</label>
+				<label class='form-label fw-bold' for='post-title'>Title</label>
 				<input
 					class='form-control'
 					type='text'
@@ -14,7 +14,7 @@
 				/>
 			</div>
 			<div class='mb-3'>
-				<label class='form-label' for='post-content'>Content</label>
+				<label class='form-label fw-bold' for='post-content'>Content</label>
 				<textarea
 					class='form-control'
 					id='post-content'
@@ -24,12 +24,12 @@
 			{{#if post}}
 				<button
 					type='submit'
-					class='btn btn-primary'
+					class='btn btn-secondary'
 					id='update-post'
 				>Update Post</button>
 				<button
 					type='button'
-					class='btn btn-primary'
+					class='btn btn-secondary'
 					id='delete-post'
 					data-id='{{post.id}}'
 					onclick='deletePost()'
@@ -37,7 +37,7 @@
 			{{else}}
 				<button
 					type='submit'
-					class='btn btn-primary'
+					class='btn btn-secondary'
 				>Create</button>
 			{{/if}}
 		</form>

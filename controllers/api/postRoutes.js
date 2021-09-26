@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // Create a new post
-router.post('/', async (req, res) => {
+router.post('/', withAuth, async (req, res) => {
 	try {
 		const newPost = await Post.create({
 			...req.body,
@@ -16,7 +17,7 @@ router.post('/', async (req, res) => {
 });
 
 // Update an existing post
-router.put('/:id', async ({ params, body }, res) => {
+router.put('/:id', withAuth, async ({ params, body }, res) => {
 	try {
 		const postData = await Post.update(body, { where: { id: params.id } });
 		res.status(200).json(postData);
@@ -26,7 +27,7 @@ router.put('/:id', async ({ params, body }, res) => {
 });
 
 // Delete an existing post
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', withAuth, async (req, res) => {
 	try {
 		const postData = await Post.destroy({
 			where: {
@@ -41,65 +42,6 @@ router.delete('/:id', async (req, res) => {
 		}
 
 		res.status(200).json(postData);
-	} catch (err) {
-		res.status(500).json(err);
-	}
-});
-
-// API TESTING ROUTES
-router.get('/', async (req, res) => {
-	try {
-		const postData = await Post.findAll({
-			include: [
-				{
-					model: User,
-					attributes: ['username'],
-				},
-				{
-					model: Comment,
-					include: [
-						{
-							model: User,
-							attributes: ['username'],
-						},
-					],
-				},
-			],
-		});
-		const posts = postData.map(post => post.get({ plain: true }));
-		res.status(200).json(posts);
-	} catch (err) {
-		res.status(500).json(err);
-	}
-});
-
-router.get('/:id', async (req, res) => {
-	try {
-		const postData = await Post.findByPk(req.params.id, {
-			include: [
-				{
-					model: User,
-					attributes: ['username'],
-				},
-				{
-					model: Comment,
-					include: [
-						{
-							model: User,
-							attributes: ['username'],
-						},
-					],
-				},
-			],
-		});
-
-		if (!postData) {
-			res.status(404).json({ message: 'No blog post found with this id!' });
-			return;
-		}
-
-		const post = postData.get({ plain: true });
-		res.status(200).json(post);
 	} catch (err) {
 		res.status(500).json(err);
 	}
